@@ -1,5 +1,7 @@
 {
   "expo": {
+    "scheme": "mymealsapp",
+    "plugins": ["expo-router"],
     "name": "app3-meals",
     "slug": "app3-meals",
     "version": "1.0.0",
