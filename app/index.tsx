@@ -9,10 +9,7 @@ function CategoriesScreen() {
 
   const renderCategoryItem = (itemData: { item: Category }) => {
     const pressHandler = () => {
-      router.push({
-        pathname: '/meals',
-        params: { categoryId: itemData.item.id },
-      });
+      router.push(`/meals/${itemData.item.id}`);
     };
 
     return (
