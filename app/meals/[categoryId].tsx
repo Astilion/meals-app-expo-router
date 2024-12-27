@@ -1,4 +1,4 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { useLocalSearchParams} from 'expo-router';
 import { View, FlatList, StyleSheet } from 'react-native';
 import MealItem from '../../components/MealItem';
 import { MEALS, CATEGORIES } from '../../data/dummy-data';
