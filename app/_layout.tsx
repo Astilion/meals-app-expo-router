@@ -1,6 +1,6 @@
 import { Drawer } from "expo-router/drawer";
 import { Ionicons } from '@expo/vector-icons';
-
+import { Stack } from "expo-router";
 
 export default function Layout() {
   return (
@@ -24,12 +24,10 @@ export default function Layout() {
         }}
       />
       <Drawer.Screen
-        name="favourites"
+        name="meals"
         options={{
-          title: "Favourites",
-          drawerIcon: ({ color, size }) => (
-            <Ionicons name="star" color={color} size={size} />
-          ),
+          title: "Meals",
+          drawerItemStyle: { height: 0 }, // Hide this from drawer
         }}
       />
     </Drawer>

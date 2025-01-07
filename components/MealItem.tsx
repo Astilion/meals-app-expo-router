@@ -1,3 +1,4 @@
+import React from 'react';
 import {
   View,
   Text,
@@ -6,25 +7,21 @@ import {
   StyleSheet,
   Platform,
 } from 'react-native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../types/types';
+import { useRouter } from 'expo-router';
 import { MealType } from '../models/meal';
-import { useNavigation } from '@react-navigation/native';
 import MealDetails from './MealDetails';
 
-type NavigationProp = NativeStackNavigationProp<
-  RootStackParamList,
-  'MealDetail'
->;
 type MealItemProps = {
   meal: MealType;
 };
+
 const MealItem = ({ meal }: MealItemProps) => {
-  const navigation = useNavigation<NavigationProp>();
+  const router = useRouter();
 
   const selectMealItemHandler = () => {
-    navigation.navigate('MealDetail', { mealId: meal.id });
+    router.push(`/meals/${meal.id}`);
   };
+
   return (
     <View style={styles.mealItem}>
       <Pressable
