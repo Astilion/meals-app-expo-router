@@ -19,7 +19,14 @@ const MealItem = ({ meal }: MealItemProps) => {
   const router = useRouter();
 
   const selectMealItemHandler = () => {
-    router.push(`/meals/${meal.id}`);
+    console.log('MealItem - Attempting navigation');
+    console.log('Meal ID:', meal.id);
+    
+    // Updated navigation path
+    router.push({
+      pathname: '/meals/mealDetail',
+      params: { mealId: meal.id }
+    });
   };
 
   return (

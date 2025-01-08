@@ -1,25 +1,27 @@
 import React from 'react';
-import { Stack } from "expo-router";
+import { Stack } from 'expo-router';
 
 export default function MealsLayout() {
+  console.log('MealsLayout loaded');
+
   return (
     <Stack
       screenOptions={{
-        headerStyle: { backgroundColor: "#351401" },
-        headerTintColor: "white",
-        contentStyle: { backgroundColor: "#3f2f25" },
+        headerStyle: { backgroundColor: '#351401' },
+        headerTintColor: 'white',
+        contentStyle: { backgroundColor: '#3f2f25' },
       }}
     >
       <Stack.Screen
-        name="[categoryId]"
+        name='[categoryId]'
         options={{
-          title: "Meals Overview",
+          title: 'Meals Overview',
         }}
       />
       <Stack.Screen
-        name="[mealId]"
+        name='mealDetail'
         options={{
-          title: "Meal Detail",
+          title: 'Meal Details',
         }}
       />
     </Stack>

@@ -1,30 +1,29 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
 import { useLocalSearchParams, Stack } from 'expo-router';
 import { MEALS } from '../../data/dummy-data';
 import MealDetails from '../../components/MealDetails';
 import Subtitle from '../../components/MealDetail/Subtitle';
 import List from '../../components/MealDetail/List';
-import IconButton from '../../components/IconButton';
 
-const MealDetailsScreen = () => {
-  // Log all params to debug
+export default function MealDetailScreen() {
   const params = useLocalSearchParams();
-  console.log('Received params:', params);
-  
-  // Get mealId from params
+
+  useEffect(() => {
+    console.log('MealDetailScreen mounted');
+    console.log('Params:', params);
+  }, []);
+
   const mealId = params.mealId as string;
-  console.log('Looking for meal with ID:', mealId);
+  console.log('MealID:', mealId);
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
-  console.log('Found meal:', selectedMeal);
+  console.log('Selected meal:', selectedMeal);
 
   if (!selectedMeal) {
     return (
-      <View style={styles.rootContainer}>
-        <Text style={styles.errorText}>
-          Meal not found! ID: {mealId}
-        </Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Meal not found! ID: {mealId}</Text>
       </View>
     );
   }
@@ -37,7 +36,7 @@ const MealDetailsScreen = () => {
         }}
       />
       <ScrollView style={styles.rootContainer}>
-        <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
+        <Image source={{ uri: selectedMeal.imageUrl }} style={styles.image} />
         <Text style={styles.title}>{selectedMeal.title}</Text>
         <MealDetails
           duration={selectedMeal.duration}
@@ -56,20 +55,20 @@ const MealDetailsScreen = () => {
       </ScrollView>
     </>
   );
-};
-
-export default MealDetailsScreen;
+}
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  text: {
+    color: 'white',
+    fontSize: 18,
+  },
   rootContainer: {
     marginBottom: 32,
-    flex: 1,
-  },
-  errorText: {
-    color: 'white',
-    textAlign: 'center',
-    fontSize: 18,
-    marginTop: 32,
   },
   image: {
     width: '100%',
