@@ -1,8 +1,8 @@
 import { FlatList, StyleSheet, View } from 'react-native';
 import { useRouter } from 'expo-router';
-import { CATEGORIES } from '../data/dummy-data';
-import Category from '../models/category';
-import CategoryGridTile from '../components/CategoryGridTile';
+import { CATEGORIES } from '../../data/dummy-data';
+import Category from '../../models/category';
+import CategoryGridTile from '../../components/CategoryGridTile';
 
 function CategoriesScreen() {
   const router = useRouter();

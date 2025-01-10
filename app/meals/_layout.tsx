@@ -2,8 +2,6 @@ import React from 'react';
 import { Stack } from 'expo-router';
 
 export default function MealsLayout() {
-  console.log('MealsLayout loaded');
-
   return (
     <Stack
       screenOptions={{

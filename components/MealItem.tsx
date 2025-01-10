@@ -22,7 +22,6 @@ const MealItem = ({ meal }: MealItemProps) => {
     console.log('MealItem - Attempting navigation');
     console.log('Meal ID:', meal.id);
     
-    // Updated navigation path
     router.push({
       pathname: '/meals/mealDetail',
       params: { mealId: meal.id }

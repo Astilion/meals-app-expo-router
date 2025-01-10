@@ -1,24 +1,44 @@
-import React, { useEffect } from 'react';
-import { Text, View, Image, StyleSheet, ScrollView } from 'react-native';
-import { useLocalSearchParams, Stack } from 'expo-router';
+import React, { useLayoutEffect } from 'react';
+import {
+  Text,
+  View,
+  Image,
+  StyleSheet,
+  ScrollView,
+  Pressable,
+} from 'react-native';
+import { useLocalSearchParams, Stack, useNavigation } from 'expo-router';
 import { MEALS } from '../../data/dummy-data';
 import MealDetails from '../../components/MealDetails';
 import Subtitle from '../../components/MealDetail/Subtitle';
 import List from '../../components/MealDetail/List';
+import { Ionicons } from '@expo/vector-icons';
 
 export default function MealDetailScreen() {
   const params = useLocalSearchParams();
-
-  useEffect(() => {
-    console.log('MealDetailScreen mounted');
-    console.log('Params:', params);
-  }, []);
-
+  const navigation = useNavigation();
   const mealId = params.mealId as string;
-  console.log('MealID:', mealId);
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
-  console.log('Selected meal:', selectedMeal);
+
+  function headerButtonPressHandler() {
+    console.log('Pressed favorite');
+  }
+
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerRight: () => {
+        return (
+          <Pressable
+            onPress={headerButtonPressHandler}
+            style={({ pressed }) => pressed && styles.pressed}
+          >
+            <Ionicons name='star' size={24} color='white' style={styles.icon} />
+          </Pressable>
+        );
+      },
+    });
+  }, [navigation]);
 
   if (!selectedMeal) {
     return (
@@ -89,5 +109,11 @@ const styles = StyleSheet.create({
   },
   listContainer: {
     width: '80%',
+  },
+  icon: {
+    marginRight: 16,
+  },
+  pressed: {
+    opacity: 0.7,
   },
 });
