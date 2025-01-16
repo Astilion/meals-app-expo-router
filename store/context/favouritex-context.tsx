@@ -8,7 +8,7 @@ type FavouritesContextType = {
 type FavouritesContextProps = {
   children: ReactNode;
 };
-const FavouritesContext = createContext<FavouritesContextType>({
+export const FavouritesContext = createContext<FavouritesContextType>({
   ids: [],
   addFavourite: (id) => {},
   removeFavourite: (id) => {},

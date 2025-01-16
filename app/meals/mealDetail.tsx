@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useContext, useLayoutEffect } from 'react';
 import {
   Text,
   View,
@@ -12,33 +12,41 @@ import { MEALS } from '../../data/dummy-data';
 import MealDetails from '../../components/MealDetails';
 import Subtitle from '../../components/MealDetail/Subtitle';
 import List from '../../components/MealDetail/List';
-import { Ionicons } from '@expo/vector-icons';
+import { FavouritesContext } from '../../store/context/favouritex-context';
+import IconButton from '../../components/IconButton';
 
 export default function MealDetailScreen() {
+  const favouriteMealsCtx = useContext(FavouritesContext);
   const params = useLocalSearchParams();
   const navigation = useNavigation();
   const mealId = params.mealId as string;
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
-  function headerButtonPressHandler() {
-    console.log('Pressed favorite');
+  const mealIsFavourite = favouriteMealsCtx.ids.includes(mealId);
+  function changeFavouriteStatusHandler() {
+    if (mealIsFavourite) {
+      favouriteMealsCtx.removeFavourite(mealId);
+      console.log('remove favourite')
+    } else {
+      favouriteMealsCtx.addFavourite(mealId);
+      console.log('added favourite')
+    }
   }
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <Pressable
-            onPress={headerButtonPressHandler}
-            style={({ pressed }) => pressed && styles.pressed}
-          >
-            <Ionicons name='star' size={24} color='white' style={styles.icon} />
-          </Pressable>
+          <IconButton
+            icon={mealIsFavourite ? 'star' : 'star-outline'}
+            color='white'
+            onPress={changeFavouriteStatusHandler}
+          />
         );
       },
     });
-  }, [navigation]);
+  }, [navigation, mealIsFavourite]);
 
   if (!selectedMeal) {
     return (
