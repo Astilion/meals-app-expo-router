@@ -1,15 +1,13 @@
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { View, FlatList, StyleSheet, Text } from 'react-native';
-import MealItem from '../../components/MealItem';
-import { MEALS, CATEGORIES } from '../../data/dummy-data';
-import { MealType } from '../../models/meal';
+import { useLocalSearchParams} from 'expo-router';
+import { View, StyleSheet, Text } from 'react-native';
+import { CATEGORIES } from '../../data/dummy-data';
 import { useEffect } from 'react';
 import { useNavigation } from 'expo-router';
+import MealsList from '../../components/MealsList/MealsList';
 
 function MealsOverviewScreen() {
   const { categoryId } = useLocalSearchParams();
   const navigation = useNavigation();
-
 
   // Ensure categoryId is a string
   const categoryIdStr = Array.isArray(categoryId) ? categoryId[0] : categoryId;
@@ -32,25 +30,7 @@ function MealsOverviewScreen() {
     }
   }, [categoryTitle, navigation]);
 
-  // Filter meals by category ID
-  const displayedMeals = MEALS.filter((mealItem) =>
-    mealItem.categoryIds.includes(categoryIdStr),
-  );
-
-  // Render a meal item
-  const renderMealItem = (itemData: { item: MealType }) => {
-    return <MealItem meal={itemData.item} />;
-  };
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={displayedMeals}
-        keyExtractor={(item) => item.id}
-        renderItem={renderMealItem}
-      />
-    </View>
-  );
+  return <MealsList/>;
 }
 
 export default MealsOverviewScreen;

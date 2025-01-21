@@ -8,8 +8,8 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter } from 'expo-router';
-import { MealType } from '../models/meal';
-import MealDetails from './MealDetails';
+import { MealType } from '../../models/meal';
+import MealDetails from '../MealDetails';
 
 type MealItemProps = {
   meal: MealType;
