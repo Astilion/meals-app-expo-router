@@ -1,9 +1,10 @@
-import { useLocalSearchParams} from 'expo-router';
+import { useLocalSearchParams } from 'expo-router';
 import { View, StyleSheet, Text } from 'react-native';
 import { CATEGORIES } from '../../data/dummy-data';
 import { useEffect } from 'react';
 import { useNavigation } from 'expo-router';
 import MealsList from '../../components/MealsList/MealsList';
+import { MEALS } from '../../data/dummy-data';
 
 function MealsOverviewScreen() {
   const { categoryId } = useLocalSearchParams();
@@ -18,6 +19,10 @@ function MealsOverviewScreen() {
       </View>
     );
   }
+  // Filter meals by category ID
+  const displayedMeals = MEALS.filter((mealItem) =>
+    mealItem.categoryIds.includes(categoryIdStr),
+  );
   // Find the category title
   const categoryTitle = CATEGORIES.find(
     (category) => category.id === categoryIdStr,
@@ -28,9 +33,9 @@ function MealsOverviewScreen() {
     if (categoryTitle) {
       navigation.setOptions({ title: categoryTitle });
     }
-  }, [categoryTitle, navigation]);
+  }, [categoryTitle]);
 
-  return <MealsList/>;
+  return <MealsList items={displayedMeals} />;
 }
 
 export default MealsOverviewScreen;

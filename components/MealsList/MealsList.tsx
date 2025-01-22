@@ -1,21 +1,11 @@
 import { View, FlatList, StyleSheet } from 'react-native';
-import { useLocalSearchParams } from 'expo-router';
-import { MEALS } from '../../data/dummy-data';
 import MealItem from './MealItem';
 import { MealType } from '../../models/meal';
 
-const MealsList = () => {
-  // Access categoryId from route parameters
-  const { categoryId } = useLocalSearchParams();
-
-  // Ensure categoryId is a string
-  const categoryIdStr = categoryId?.toString();
-
-  // Filter meals by category ID
-  const displayedMeals = MEALS.filter((mealItem) =>
-    mealItem.categoryIds.includes(categoryIdStr),
-  );
-
+type MealListProps = {
+  items: MealType[];
+};
+const MealsList = ({ items }: MealListProps) => {
   // Render a meal item
   const renderMealItem = (itemData: { item: MealType }) => {
     return <MealItem meal={itemData.item} />;
@@ -24,7 +14,7 @@ const MealsList = () => {
   return (
     <View style={styles.container}>
       <FlatList
-        data={displayedMeals}
+        data={items}
         keyExtractor={(item) => item.id}
         renderItem={renderMealItem}
       />
